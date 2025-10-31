@@ -1,0 +1,51 @@
+fixtures:
+  - customer_information: # name of the fixture must be provided and be unique
+      - customer_id: "125" # every fixture can contain multiple slot key-value pairs
+                          # This will be helpful when to se user information
+
+test_cases:
+  - test_case: check balance wrong id
+    steps:
+    - user: "I need to check my balance"
+      assertions:
+        - flow_started: "check_balance"
+        - bot_uttered:
+            utter_name: utter_ask_account_id_from_user
+    - user: BA18291
+      assertions:
+        - slot_was_set:
+            - name: "account_id_from_user"
+              value: "BA18291"
+        - action_executed: action_get_data_from_db
+        - slot_was_set:
+          - name: "check_access_status"
+            value: False
+        - bot_uttered:
+            utter_name: utter_dont_have_access
+        - bot_uttered:
+            utter_name: utter_ask_provide_account_id
+    - user: "Yes" 
+      assertions:
+        - bot_uttered:
+            utter_name: utter_provide_account_id_from_db
+# ====================================================>
+  - test_case: check balance right id
+    steps:
+    - user: "I would like to check my balance"
+      assertions:
+        - flow_started: "check_balance"
+        - bot_uttered:
+            utter_name: utter_ask_account_id_from_user
+    - user: EF1234
+      assertions:
+        - slot_was_set:
+            - name: "account_id_from_user"
+              value: "EF1234"
+        - action_executed: action_get_data_from_db
+        - slot_was_set:
+          - name: "check_access_status"
+            value: True
+        - bot_uttered:
+            utter_name: utter_have_access
+        - bot_uttered:
+            utter_name: utter_provide_balance

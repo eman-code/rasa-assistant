@@ -1,0 +1,24 @@
+version: "3.1"
+
+slots:
+  customer_id:
+    type: text
+    mappings:
+      - type: from_llm
+    initial_value: 123 # this is manually set here as we usually get this from the an API call
+
+responses:
+
+  utter_fallback:
+    - text: |
+        I appreciate your question! 
+        That's a bit outside my expertise, but I'm here to help buy a new credit card or check your balance.
+        Would you like assistance with that?
+  utter_bot_challenge:
+    - text: |
+        I'm an AI assistant designed to assist you quickly and efficiently. 
+        If you ever need to speak with a human agent, just let me know!
+  utter_goodbye:
+    - text: |
+        I hope I was helpful today!
+        Let me know if you need more assistance.

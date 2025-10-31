@@ -1,0 +1,74 @@
+version: "3.1"
+slots:
+
+  account_id_from_user:
+    type: text
+    mappings:
+      - type: from_llm
+
+  balance:
+    type: float
+    mappings:
+      - type: custom
+        action: action_get_data_from_db
+
+  check_access_status:
+    type: bool
+    mappings:
+      - type: custom
+        action: action_get_data_from_db
+
+  provide_account_id:
+    type: bool
+    mappings:
+      - type: from_llm
+  
+  account_id_from_db:
+    type: text
+    mappings:
+      - type: custom
+        action: action_get_customer_info
+
+  customer_last_name:
+    type: text
+    mappings:
+      - type: custom
+        action: action_get_customer_info
+responses:
+  utter_ask_account_id_from_user:
+    - text: |
+        Got it, for security reasons can you please provide me your account number please?
+  
+  utter_dont_have_access:
+    - text: |
+        Alright. 
+        I can only check the balance for you for the accounts you own.
+        Unfortunaltely, The id you just provided "{account_id_from_user}" is not in the list of your accounts.
+
+  utter_ask_provide_account_id:
+    - text: |
+        You are actually authenticated, in case you don't recall your account id
+        I can look it up for you.
+        Would you like that?
+      buttons:
+        - title: "Yes"
+          payload: "/SetSlots(provide_account_id=True)"
+        - title: "No"
+          payload: "/SetSlots(provide_account_id=False)"
+
+  utter_provide_account_id_from_db:
+    - text: |
+        Sure thing.
+        Here is the account id {account_id_from_db} associated to your customer id {customer_id}.
+
+  utter_have_access:
+    - text: |
+        Got it.
+        I did a quick check and you are indeed the owner of the account number you provided.
+        Let's proceed.
+  utter_provide_balance:
+    - text: "Your current balance is {balance} euros"
+
+  
+actions:
+  - action_get_data_from_db

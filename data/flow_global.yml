@@ -1,0 +1,12 @@
+flows:
+  bot_challenge:
+    description: This flow clarifies that the user is talking to a chatbot, when the user ask if they are talking to a chatbot or a human
+    steps:
+      - action: utter_bot_challenge
+
+  # fallback: # this will work with a strong model like gpt-4
+  #   description: This will be a fallbck flow. when for the user input that is not related to the purpose of the assistant. 
+  #               It should not respond to greetings or goodbyes or anything defined in another flow. 
+  #               anything not related to checking balance or bying a credit card should be in this flow
+  #   steps:
+  #     - action: utter_fallback

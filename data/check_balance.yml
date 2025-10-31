@@ -1,0 +1,25 @@
+flows:
+  check_balance:
+    description: check the balance of the user's account
+    steps:
+      - collect: account_id_from_user
+        ask_before_filling: True
+      - action: action_get_data_from_db
+        next:
+          - if: slots.check_access_status
+            then:
+              - action: utter_have_access
+              - action: utter_provide_balance
+                next: "END"
+          - else: 
+            - action: utter_dont_have_access
+            - collect: provide_account_id
+              ask_before_filling: True
+              next:
+                - if: slots.provide_account_id
+                  then:
+                    - action: utter_provide_account_id_from_db
+                      next: "END"
+                - else: 
+                  - action: utter_goodbye
+                    next: "END"
