@@ -1,0 +1,49 @@
+flows:
+  buy_credit_card:
+    description: assist user in purchasing a credit card
+    steps:
+      # Step 1: Start with a polite acknowledgment
+      - action: utter_buy_credit_card_intro
+        next: collect_card_type_step
+
+      # Step 2: Collect the credit card type
+      - id: collect_card_type_step
+        collect: credit_card_type
+        ask_before_filling: true
+        next: collect_delivery_type_step
+
+      # Step 3: Collect delivery type
+      - id: collect_delivery_type_step
+        collect: delivery_type
+        ask_before_filling: true
+        next: collect_address_step
+
+      # Step 4: Collect delivery address
+      - id: collect_address_step
+        collect: address
+        ask_before_filling: true
+        next: recap_confirmation_step
+
+      # Step 5: Ask user to confirm recap
+      - id: recap_confirmation_step
+        action: utter_ask_confirm_recap
+        next: collect_confirm_recap_step
+
+      # Step 6: Collect confirmation from user
+      - id: collect_confirm_recap_step
+        collect: confirm_recap
+        ask_before_filling: true
+        next:
+          - if: slots.confirm_recap
+            then: recap_yes_step
+          - else: recap_no_step
+
+      # Step 7: User said YES
+      - id: recap_yes_step
+        action: utter_recap_success
+        next: "END"
+
+      # Step 8: User said NO
+      - id: recap_no_step
+        action: utter_goodbye_connect_agent
+        next: "END"

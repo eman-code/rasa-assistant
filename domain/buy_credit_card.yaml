@@ -1,0 +1,66 @@
+version: "3.1"
+slots:
+
+  credit_card_type:
+    type: text
+    mappings:
+      - type: from_llm
+
+  delivery_type:
+    type: text
+    mappings:
+      - type: from_llm
+
+  address:
+    type: text
+    mappings:
+      - type: from_llm
+
+responses:
+  utter_ask_credit_card_type:
+    - text: |
+        What kind of credit card are you looking to buy?
+      buttons:
+        - title: "Visa"
+          payload: "/SetSlots(credit_card_type=Visa)"
+        - title: "MasterCard"
+          payload: "/SetSlots(credit_card_type=MasterCard)"
+        - title: "American Express"
+          payload: "/SetSlots(credit_card_type=Amex)"
+
+  utter_ask_delivery_type:
+    - text: |
+        Okay, let's move to the next step of the credit card purchase.
+        Would you like your new credit card to be delivered?
+      buttons:
+        - title: "At home"
+          payload: "/SetSlots(delivery_type=Home)"
+        - title: "To the closest bank near you"
+          payload: "/SetSlots(delivery_type=Bank)"
+
+  utter_ask_address:
+    - text: |
+        Understood.
+        Can you please provide me your full address?
+
+  utter_ask_confirm_recap:
+    - text: |
+        Let's make sure all the information provided are in order:
+        - Credit card type: {credit_card_type}
+        - Delivery type: {delivery_type}
+        - Address: {address}
+        Can you confirm that all the information captured above is accurate?
+      buttons:
+        - title: "Yes"
+          payload: "/SetSlots(confirm_recap=True)"
+        - title: "No"
+          payload: "/SetSlots(confirm_recap=False)"
+
+  utter_recap_success:
+    - text: |
+        Great, you are all set! 
+
+  utter_buy_credit_card_intro:
+    - text: |
+        Certainly, I can help you with that.  
+        Let's get started with your credit card application.

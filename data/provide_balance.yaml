@@ -1,0 +1,28 @@
+flows:
+  provide_balance_flow:
+    description: Checks access status and provides the balance or a denial message.
+    steps:
+      # This is the "dummy" collect step for branching.
+      - collect: dummy_slot_for_branching
+        ask_before_filling: false
+        next:
+          - if: slots.check_access_status
+            then: has_access_step
+          - else: no_access_step
+
+      # --- SUCCESS BRANCH ---
+      # Step 2a: First action in the success branch.
+      - id: has_access_step
+        action: utter_have_access
+        next: provide_balance_step
+
+      # Step 2b: Second action in the success branch.
+      - id: provide_balance_step
+        action: utter_provide_balance
+        next: "END"
+
+      # --- FAILURE BRANCH ---
+      # Step 3: The "no access" branch.
+      - id: no_access_step
+        action: utter_dont_have_access
+        next: "END"

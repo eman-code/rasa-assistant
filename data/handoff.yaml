@@ -1,0 +1,14 @@
+flows:
+  handoff_to_human:
+    description: transfer to human support if user declines confirmation
+    steps:
+      - collect: confirm_recap
+        ask_before_filling: True
+        next:
+          - if: slots.confirm_recap == False
+            then:
+              - action: utter_handoff
+                next: "END"
+          - else:
+              - action: utter_confirm_success
+                next: "END"

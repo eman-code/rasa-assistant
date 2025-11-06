@@ -1,0 +1,16 @@
+version: "3.1"
+# Add this section to register your custom action
+actions:
+  - action_handle_confirmation
+
+slots:
+  confirm_recap:
+    type: bool
+    mappings:
+      - type: from_llm
+
+responses:
+  utter_confirm_success:
+    - text: |
+        Perfect! Your request has been confirmed and is now being processed.
+        You’ll receive a notification soon.

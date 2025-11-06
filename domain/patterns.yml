@@ -11,6 +11,7 @@ responses:
     - text: |
         Hey {customer_first_name} 👋
         I am your virtual AI assistant that can help you with
+        - credit card purchase
         - balance check
         How may I help you, today ?
   
@@ -24,3 +25,4 @@ responses:
 
 actions:
   - action_get_customer_info
+  - check_access

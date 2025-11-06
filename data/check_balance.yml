@@ -2,24 +2,57 @@ flows:
   check_balance:
     description: check the balance of the user's account
     steps:
-      - collect: account_id_from_user
-        ask_before_filling: True
-      - action: action_get_data_from_db
+      # Step 1: Ask for and collect the account ID from the user
+      - id: collect_account_id_step
+        collect: account_id_from_user
+        ask_before_filling: true
+        next:
+          - if: slots.account_id_from_user
+            then: get_data_step
+          - else: ask_again_step
+
+      # Step 2: Retrieve data from the database
+      - id: get_data_step
+        action: action_get_data_from_db
+        next: branch_access_step
+
+      # Step 3: Branch based on access status
+      - id: branch_access_step
+        collect: dummy_slot_for_branching
+        ask_before_filling: false
         next:
           - if: slots.check_access_status
-            then:
-              - action: utter_have_access
-              - action: utter_provide_balance
-                next: "END"
-          - else: 
-            - action: utter_dont_have_access
-            - collect: provide_account_id
-              ask_before_filling: True
-              next:
-                - if: slots.provide_account_id
-                  then:
-                    - action: utter_provide_account_id_from_db
-                      next: "END"
-                - else: 
-                  - action: utter_goodbye
-                    next: "END"
+            then: has_access_step
+          - else: offer_lookup_step
+
+      # --- SUCCESS BRANCH ---
+      - id: has_access_step
+        action: utter_have_access
+        next: provide_balance_step
+
+      - id: provide_balance_step
+        action: utter_provide_balance
+        next: "END"
+
+      # --- FAILURE BRANCH (Offer lookup) ---
+      - id: offer_lookup_step
+        action: utter_dont_have_access
+        next: collect_provide_account_id_step
+
+      - id: collect_provide_account_id_step
+        collect: provide_account_id
+        ask_before_filling: true
+        next:
+          - if: slots.provide_account_id
+            then: provide_account_id_step
+          - else: "END"
+
+      - id: provide_account_id_step
+        action: utter_provide_account_id_from_db
+        next: "END"
+
+
+      # --- NO INPUT BRANCH ---
+      - id: ask_again_step
+        action: utter_ask_account_id_from_user
+        next: "END"

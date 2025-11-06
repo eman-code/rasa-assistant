@@ -1,0 +1,8 @@
+flows:
+  confirm_information:
+    description: confirm recap and route if necessary
+    steps:
+      - collect: confirm_recap
+        ask_before_filling: True
+      - action: action_handle_confirmation
+        next: "END"

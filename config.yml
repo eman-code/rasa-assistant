@@ -1,5 +1,6 @@
 recipe: default.v1
 language: en
+domain: domain
 
 pipeline:
 

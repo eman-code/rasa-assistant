@@ -5,7 +5,19 @@ slots:
     type: text
     mappings:
       - type: from_llm
-    initial_value: 123 # this is manually set here as we usually get this from the an API call
+    initial_value: 125 # this is manually set here as we usually get this from the an API call
+
+  check_access_status:
+    type: bool
+    mappings:
+      - type: custom
+        action: action_get_data_from_db
+
+  dummy_slot_for_branching:
+    type: bool
+    initial_value: false 
+    mappings:
+      - type: from_llm
 
 responses:
 

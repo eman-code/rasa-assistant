@@ -1,0 +1,14 @@
+version: "3.1"
+
+intents:
+  - deny_confirmation
+
+responses:
+  utter_handoff:
+    - text: |
+        It seems I'm not able to help you fully.
+        Let me connect you to our human support managers.
+        Please hold on while I connect you to our expert.
+
+actions:
+  - action_trigger_handoff
