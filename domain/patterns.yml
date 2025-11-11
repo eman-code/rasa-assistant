@@ -15,11 +15,11 @@ responses:
         - balance check
         How may I help you, today ?
   
-  utter_more_help_needed_handoff_pattern: # add more information here, if you need this to connect to specific channel..
-    - text: |
+  utter_more_help_needed_handoff_pattern: 
+    - text:
             It seems like I'm not able to help you fully.
             Let me connect you to our human support managers. They will help you further!
-            Please hold on while I connect you to our expert 📲  
+            Please hold on while I connect you to our expert.  
       image: "https://cdn-icons-png.flaticon.com/512/1042/1042127.png"
 
 

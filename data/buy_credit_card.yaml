@@ -22,12 +22,12 @@ flows:
       - id: collect_address_step
         collect: address
         ask_before_filling: true
-        next: recap_confirmation_step
-
-      # Step 5: Ask user to confirm recap
-      - id: recap_confirmation_step
-        action: utter_ask_confirm_recap
         next: collect_confirm_recap_step
+
+      # # Step 5: Ask user to confirm recap
+      # - id: recap_confirmation_step
+      #   action: utter_ask_confirm_recap
+      #   next: collect_confirm_recap_step
 
       # Step 6: Collect confirmation from user
       - id: collect_confirm_recap_step

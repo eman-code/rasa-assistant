@@ -53,7 +53,7 @@
 
 ## Use of Agents and LLMs
 
-1. moving from a conversational script to a reasoning system. A usecase: multi-intent conversations; Instead of pre-defining every conversational turn in YAML flows, use a powerful LLM (like GPT-4, Gemini, etc) as a "reasoning engine."
+1. Moving from a conversational script to a reasoning system. A usecase: multi-intent conversations; Instead of pre-defining every conversational turn in YAML flows, use a powerful LLM (like GPT-4, Gemini, etc) as a "reasoning engine."
 
 - Details:
 

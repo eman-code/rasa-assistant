@@ -82,7 +82,7 @@ responses:
         It seems I'm not able to help you fully.  
         Let me connect you to our human support managers.  
         Please hold on while I connect you to our expert.
-      image: "images/image_human_agent.png"
+      image: "https://raw.githubusercontent.com/eman-code/rasa-assistant/master/images/image_human_agent.png"
 
 actions:
   - action_get_data_from_db

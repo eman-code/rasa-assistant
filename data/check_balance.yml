@@ -51,7 +51,6 @@ flows:
         action: utter_provide_account_id_from_db
         next: "END"
 
-
       # --- NO INPUT BRANCH ---
       - id: ask_again_step
         action: utter_ask_account_id_from_user
